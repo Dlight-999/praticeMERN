@@ -1,37 +1,33 @@
 import React, { ChangeEvent, useState } from 'react'
-interface Workout{
-    exercise: string;
-    setsReps: string;
-}
+import Navbar from '../components/Navbar';
+
 const Home: React.FC=()=>{
-    const[workout, setWorkout] = useState<Workout>({
-        exercise:'',
-        setsReps:'',
-    });
-
-        const handleInputChange =(e:ChangeEvent<HTMLInputElement>)=>{
-            const{name, value} = e.target;
-            setWorkout({...workout,[name]: value})
-
-        }
   
   return (
     <>
-        <div className="h-screen bg-gray-400">
+    <div className="flex flex-col w-full ">
+    <Navbar/>
+        <div className="h-screen w-full bg-gray-400">
             <div className="flex justify-evenly h-full">
                 <div className="form w-full flex flex-col justify-center items-center">
-                   <div className='bg-black rounded-lg text-white w-96 p-5'> 
+                   <div className='bg-black rounded-lg text-white w-auto p-5'> 
                     Add Workout
                     <div className='flex flex-col'>
                         <div className='flex flex-col'>
                             <label htmlFor="">Exercise</label>
-                            <input type="text" name="" id="" className='rounded-md h-12 text-black p-2' onChange={handleInputChange} />
+                            <input type="text" name="" id="" className='rounded-md h-12 text-black p-2' />
                         </div>
-                        <div className='flex flex-col'>
-                            <label htmlFor="">Sets x Reps</label>
-                            <input type="text" name="" id="" className='rounded-md h-12 text-black p-2' onChange={handleInputChange}/>
+                        <div className='flex my-6 justify-between gap-5'>
+                           <div className='flex flex-col'>
+                           <label htmlFor="">Sets</label>
+                            <input type="text" name="" id="" className='rounded-md h-12 text-black p-2'/>
+                           </div>
+                           <div className='flex flex-col'>
+                           <label htmlFor="">Reps</label>
+                            <input type="text" name="" id="" className='rounded-md h-12 text-black p-2'/>
+                           </div>
                         </div>
-                        <button className='my-5 bg-indigo-900 rounded-md p-2' type="submit">Add</button>
+                        <button className='my-5 bg-sky-600 rounded-md p-2 hover:bg-indigo-800 text-lg font-bold' type="submit">Add</button>
 
                     </div>
                 </div>
@@ -56,6 +52,7 @@ const Home: React.FC=()=>{
                     </table>
                 </div>
             </div>
+        </div>
         </div>
     </>
   )
