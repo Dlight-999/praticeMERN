@@ -1,8 +1,25 @@
 import React, { ChangeEvent, useState } from 'react'
 import Navbar from '../components/Navbar';
-
+interface IWorkout{
+    name: string,
+    sets: string,
+    reps: string,
+    
+}
 const Home: React.FC=()=>{
-  
+  const[exercise,setExercise] = useState<IWorkout>({
+    name:'',
+    sets:'',
+    reps:'',
+  })
+
+  const handleChange=(event:ChangeEvent<HTMLInputElement>)=>{
+    setExercise({
+        ...exercise,
+        [event.target.name]: event.target.value,
+    })
+    
+  }
   return (
     <>
     <div className="flex flex-col w-full ">
@@ -14,17 +31,17 @@ const Home: React.FC=()=>{
                     Add Workout
                     <div className='flex flex-col'>
                         <div className='flex flex-col'>
-                            <label htmlFor="">Exercise</label>
-                            <input type="text" name="" id="" className='rounded-md h-12 text-black p-2' />
+                            <label htmlFor="">exercise</label>
+                            <input type="text" name="name" id="name" className='rounded-md h-12 text-black p-2' value={exercise.name} onChange={handleChange} />
                         </div>
                         <div className='flex my-6 justify-between gap-5'>
                            <div className='flex flex-col'>
                            <label htmlFor="">Sets</label>
-                            <input type="text" name="" id="" className='rounded-md h-12 text-black p-2'/>
+                            <input type="text" name="sets" id="sets" className='rounded-md h-12 text-black p-2' value={exercise.sets} onChange={handleChange}/>
                            </div>
                            <div className='flex flex-col'>
                            <label htmlFor="">Reps</label>
-                            <input type="text" name="" id="" className='rounded-md h-12 text-black p-2'/>
+                            <input type="text" name="reps" id="reps" className='rounded-md h-12 text-black p-2' value={exercise.reps} onChange={handleChange}/>
                            </div>
                         </div>
                         <button className='my-5 bg-sky-600 rounded-md p-2 hover:bg-indigo-800 text-lg font-bold' type="submit">Add</button>
@@ -34,6 +51,7 @@ const Home: React.FC=()=>{
                 </div>
                 <div className="flex w-full flex-col items-center py-5">
                     <h2 className='text-lg font-semibold'>List</h2>
+                    <h2>{JSON.stringify(exercise)}</h2>
                     <table className='table-auto w-full'>
                         <thead>
                             <tr>
