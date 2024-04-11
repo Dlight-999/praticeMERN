@@ -3,7 +3,7 @@ import workout from "../models/workoutModel.js";
 //get all
 const getAllWorkout = async(req,res)=>{
    try{
-    const workouts = await workout.find({}).sort({createdAt: -1});
+    const workouts = await workout.find({}).sort({createdAt: 1});
     res.status(200).json(workouts);
    }
    catch(error){
