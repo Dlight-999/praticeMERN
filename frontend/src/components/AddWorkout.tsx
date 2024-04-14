@@ -1,18 +1,19 @@
-import axios from 'axios';
 import React, { useState } from 'react'
-
-interface IWorkout{
-    name: string;
-    sets: string;
-    reps:string;
-}
-function AddWorkout() {
-    const[workout, setWorkout]=useState<IWorkout>({
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState,} from '../app/store';
+import { addWorkout } from '../features/workoutSlice';
+const AddWorkout: React.FC=()=> {
+    const dispatch = useDispatch<AppDispatch>();
+    const error = useSelector((state:RootState)=>
+        state.workout.error
+    );
+    const[workout, setWorkout]=useState({
         name:'',
         sets:'',
         reps:'',
     });
     const[err,setErr]= useState<string>('');
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
         const{name, value} = e.target;
         setWorkout(prevState =>({
@@ -24,7 +25,7 @@ function AddWorkout() {
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         try{
-            await axios.post('http://localhost:5000/api/workout', workout);
+            await dispatch(addWorkout(workout));
             setWorkout({
                 name:'',
                 sets:'',

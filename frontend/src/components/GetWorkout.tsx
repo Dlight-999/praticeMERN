@@ -1,26 +1,24 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../app/store';
+import { getWorkouts } from '../features/workoutSlice';
 
-interface IWorkout{
-    _id: string;
-    name: string;
-    sets: number;
-    reps: number
-}
 const GetWorkout:React.FC=()=> {
-    const[workout, setWorkout] = useState<IWorkout[]>([]);
-    useEffect(()=>{
-        fetchWorkouts();
-    },[])
-    const fetchWorkouts = async()=>{
-        try{
-            const response = await axios.get<IWorkout[]>(('http://localhost:5000/api/workout'));
-            setWorkout(response.data);
-        }
-        catch(error){
-            console.error('Error fetching workout:', error);
-        }
-    };
+   const dispatch:AppDispatch = useDispatch();
+   const workout = useSelector((state: RootState)=> state.workout.workout);
+   const loading = useSelector((state: RootState)=>state.workout.loading);
+   const error = useSelector((state: RootState)=>state.workout.error);
+
+   useEffect(()=>{
+    dispatch(getWorkouts());
+   },[dispatch]);
+
+   if(loading){
+    return <div>Loading...</div>
+   }
+   if(error){
+    return <div>Error: {error}</div>
+   }
   return (
     <>
         <div className="flex w-full h-full flex-col items-center py-5 mx-2 overflow-auto">
