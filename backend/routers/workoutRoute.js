@@ -13,6 +13,6 @@ router.post('/',createWorkout)
 
 router.delete('/:id',deleteWorkout)
 
-router.post('/:id',updateWorkout)
+router.put('/:id',updateWorkout)
 
 export default router;
