@@ -8,7 +8,7 @@ export const getWorkout = createAsyncThunk('workout/getWorkout', async()=>{
 });
 
 export const addWorkout = createAsyncThunk('workout/addWorkout', async(data)=>{
-    const response = await axios.post(`${baseURL}api/workout`,{data});
+    const response = await axios.post(`${baseURL}api/workout`,data);
     return response.data;
 })
 export const updateWorkout = createAsyncThunk('workout/updateWorkout', async({_id,data})=>{
